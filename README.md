@@ -7,6 +7,13 @@ A collection of Claude Code skills for Rails development.
 - **[domain-modeling](domain-modeling/SKILL.md)** — Guides domain modeling decisions in Rails apps. Favors rich models, vanilla Rails conventions, and pragmatic simplicity over architectural ceremony.
 - **[philosophy-of-software-design](philosophy-of-software-design/SKILL.md)** — Applies principles from John Ousterhout's *A Philosophy of Software Design* to code development, review, and refactoring.
 - **[rspec-test-prof](rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
+- **[handoff](handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
+
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
+
+The `handoff/` skill is derived from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT, Copyright © 2026 Matt Pocock) — see [`handoff/LICENSE`](handoff/LICENSE).
 
 ## Installation
 

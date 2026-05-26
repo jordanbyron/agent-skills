@@ -1,15 +1,20 @@
 ---
 name: philosophy-of-software-design
 description: >
-  Applies the principles from "A Philosophy of Software Design" by John Ousterhout
-  to guide code development, code review, refactoring, and architectural decisions.
-  The central thesis: complexity is the root cause of most software problems, and
-  good design is about minimizing it through deep modules, information hiding,
-  and strategic thinking. Use this skill whenever writing new code, reviewing code,
-  refactoring, designing APIs or modules, discussing architecture, splitting or
-  combining classes/methods, naming things, writing comments, handling errors,
-  or making any design decision. Even if the user doesn't mention "design" explicitly,
-  if they're building or modifying software, these principles apply.
+  Use this skill any time the user is shaping code structure rather than fixing
+  or explaining it. Trigger on phrases like "I'm about to build...",
+  "how should I structure...", "should I split/combine...", "one class or
+  several...", "designing an API/interface/module/service/pipeline", "writing
+  interface docs before I implement", "refactoring to make it cleaner", "this
+  feels off", or reviewing code for too many methods, awkward boundaries, leaky
+  abstractions, or shallow wrappers. The signal is *structural judgment about
+  code* — choosing what goes where, what an interface exposes, how
+  responsibilities divide across classes/modules/methods. Trigger even when the
+  word "design" is absent and the phrasing is casual or embedded in a coding
+  task ("before I start coding, how should I organize X"). Skip for: pure
+  debugging, stack traces, lint/syntax/typo fixes, language or concept
+  explanations, and non-code design like UI mockups, DB schemas, or infra
+  diagrams.
 ---
 
 # Philosophy of Software Design

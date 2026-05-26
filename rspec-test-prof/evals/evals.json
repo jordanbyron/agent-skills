@@ -1,0 +1,44 @@
+{
+  "skill_name": "rspec-test-prof",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Write specs for a User model. The model has `has_many :posts`, `has_many :comments`, a `#full_name` method that combines first_name and last_name, and a `#deactivate!` method that sets `active: false` and cancels all pending posts. Use FactoryBot. Here are the relevant model files:\n\n```ruby\n# app/models/user.rb\nclass User < ApplicationRecord\n  has_many :posts, dependent: :destroy\n  has_many :comments, dependent: :destroy\n\n  validates :first_name, :last_name, :email, presence: true\n  validates :email, uniqueness: true\n\n  def full_name\n    \"#{first_name} #{last_name}\"\n  end\n\n  def deactivate!\n    transaction do\n      update!(active: false)\n      posts.pending.find_each(&:cancel!)\n    end\n  end\nend\n```\n\n```ruby\n# app/models/post.rb\nclass Post < ApplicationRecord\n  belongs_to :user\n  belongs_to :category, optional: true\n\n  enum :status, { draft: 0, pending: 1, published: 2, cancelled: 3 }\n\n  def cancel!\n    update!(status: :cancelled, cancelled_at: Time.current)\n  end\nend\n```",
+      "expected_output": "A well-structured RSpec file using let_it_be, build_stubbed where appropriate, and create_default for associations",
+      "files": [],
+      "expectations": [
+        "Uses let_it_be for shared records instead of let!",
+        "Uses build_stubbed or build (not create) for #full_name test since no DB is needed",
+        "Tests #deactivate! verifies both active: false AND pending posts cancelled",
+        "Does not use message expectations (expect().to receive) to test implementation details",
+        "Multiple related assertions grouped in same example rather than split into one-assertion-per-test"
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "These tests are really slow, can you help me speed them up?\n\n```ruby\n# spec/models/board_spec.rb\nRSpec.describe Board do\n  describe '#add_member' do\n    let!(:account) { create(:account) }\n    let!(:owner) { create(:user, account: account) }\n    let!(:board) { create(:board, owner: owner, account: account) }\n    let!(:new_member) { create(:user, account: account) }\n\n    it 'adds the user as a member' do\n      board.add_member(new_member)\n      expect(board.members).to include(new_member)\n    end\n\n    it 'sets the default role to viewer' do\n      membership = board.add_member(new_member)\n      expect(membership.role).to eq('viewer')\n    end\n\n    it 'does not add duplicate members' do\n      board.add_member(new_member)\n      board.add_member(new_member)\n      expect(board.memberships.where(user: new_member).count).to eq(1)\n    end\n  end\n\n  describe '#archive' do\n    let!(:account) { create(:account) }\n    let!(:owner) { create(:user, account: account) }\n    let!(:board) { create(:board, owner: owner, account: account) }\n    let!(:column1) { create(:column, board: board) }\n    let!(:column2) { create(:column, board: board) }\n    let!(:card1) { create(:card, column: column1, creator: owner) }\n    let!(:card2) { create(:card, column: column1, creator: owner) }\n    let!(:card3) { create(:card, column: column2, creator: owner) }\n\n    it 'marks the board as archived' do\n      board.archive\n      expect(board.archived?).to be true\n    end\n\n    it 'archives all cards' do\n      board.archive\n      expect(board.cards.reload).to all(be_archived)\n    end\n\n    it 'records the archived_at timestamp' do\n      freeze_time do\n        board.archive\n        expect(board.archived_at).to eq(Time.current)\n      end\n    end\n\n    it 'is idempotent' do\n      board.archive\n      expect { board.archive }.not_to raise_error\n    end\n  end\nend\n```",
+      "expected_output": "Refactored spec using let_it_be, before_all, create_default, with clear explanation of what changed and why",
+      "files": [],
+      "expectations": [
+        "Converts let! to let_it_be for shared records",
+        "Uses create_default to eliminate duplicate account/owner creation across describe blocks",
+        "Uses before_all or let_it_be for the heavy archive setup (columns + cards)",
+        "Includes explanation of what changed and why",
+        "Uses appropriate let_it_be modifiers (reload/refind) for records that get mutated"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add specs for this Card::Closeable concern. Closing creates a Closure record with the user who closed it, reopening destroys the closure. A card that's already closed can't be closed again.\n\n```ruby\n# app/models/card/closeable.rb\nmodule Card::Closeable\n  extend ActiveSupport::Concern\n\n  included do\n    has_one :closure, dependent: :destroy\n  end\n\n  def closed?\n    closure.present?\n  end\n\n  def close(user: Current.user)\n    return if closed?\n\n    transaction do\n      create_closure!(user: user)\n      track_event(:closed, creator: user)\n    end\n  end\n\n  def reopen(user: Current.user)\n    return unless closed?\n\n    transaction do\n      closure.destroy!\n      track_event(:reopened, creator: user)\n    end\n  end\nend\n```\n\n```ruby\n# app/models/closure.rb\nclass Closure < ApplicationRecord\n  belongs_to :card\n  belongs_to :user\nend\n```",
+      "expected_output": "Specs for the concern using let_it_be, testing behavior not implementation, with proper TestProf patterns",
+      "files": [],
+      "expectations": [
+        "Uses let_it_be for card and user setup records",
+        "Has examples covering all three methods: #close, #reopen, and #closed?",
+        "Covers edge cases: closing already-closed card and reopening already-open card",
+        "Does not use message expectations (expect().to receive) to test implementation details",
+        "Uses let_it_be modifiers (reload/refind) appropriately for records that get mutated by tests"
+      ]
+    }
+  ]
+}

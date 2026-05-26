@@ -1,0 +1,23 @@
+{
+  "skill_name": "domain-modeling",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "I'm building an e-commerce app and need to model order fulfillment. An order can be placed, paid, shipped, and delivered. Each transition needs to track who did it and when. Where should this logic live and how should I structure it?",
+      "expected_output": "Should recommend modeling state transitions as associated records (like Shipment, Payment, Delivery) rather than a status column. Behavior should live on the Order model, decomposed into concerns. Should NOT suggest a service object or state machine gem as the first option.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "I have a Project model that's getting really big — it handles memberships, archiving, notifications preferences, and file attachments. It's almost 400 lines. How should I refactor this?",
+      "expected_output": "Should recommend extracting concerns namespaced under the model (Project::Archivable, Project::Memberships, etc.). Should NOT suggest splitting into service objects or introducing a new architectural pattern. The model file itself should become a manifest of includes.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need to add the ability to bookmark posts in my app. Users can bookmark and unbookmark posts. How should I model this and what should the controller look like?",
+      "expected_output": "Should suggest a Bookmark join model, a Post::Bookmarkable concern, and a Posts::BookmarksController with create/destroy actions. Should model it as a resource, not a toggle action on PostsController.",
+      "files": []
+    }
+  ]
+}

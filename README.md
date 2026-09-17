@@ -12,6 +12,7 @@ rails/
   rspec-test-prof/              # Fast, maintainable RSpec tests with TestProf
   rules/                        # Path-scoped Rails guidance (controllers, UUIDs, PRs, callbacks)
 productivity/
+  babysit/                      # Watch a remote PR/MR until review comments and CI settle
   handoff/                      # Compact a conversation into a handoff doc
 ```
 
@@ -20,6 +21,7 @@ productivity/
 - **[design/domain-modeling](design/domain-modeling/SKILL.md)** — Guides domain modeling decisions. Favors rich models, vanilla conventions, and pragmatic simplicity over architectural ceremony. Written for Rails but the principles apply to any MVC framework.
 - **[design/philosophy-of-software-design](design/philosophy-of-software-design/SKILL.md)** — Applies principles from John Ousterhout's *A Philosophy of Software Design* to code development, review, and refactoring.
 - **[rails/rspec-test-prof](rails/rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
+- **[productivity/babysit](productivity/babysit/SKILL.md)** — Watches a remote pull/merge request for new review comments and CI failures, fixing legitimate issues and replying until it settles. Host- and CI-agnostic.
 - **[productivity/handoff](productivity/handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
 
 ## Rules
@@ -39,6 +41,7 @@ cd ~/your-project
 ln -s ~/code/agent-skills/design/domain-modeling              .claude/skills/domain-modeling
 ln -s ~/code/agent-skills/design/philosophy-of-software-design .claude/skills/philosophy-of-software-design
 ln -s ~/code/agent-skills/rails/rspec-test-prof               .claude/skills/rspec-test-prof
+ln -s ~/code/agent-skills/productivity/babysit                .claude/skills/babysit
 ln -s ~/code/agent-skills/productivity/handoff                .claude/skills/handoff
 
 # Optionally symlink rules

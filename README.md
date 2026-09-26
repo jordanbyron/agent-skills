@@ -14,6 +14,7 @@ rails/
 productivity/
   babysit/                      # Watch a remote PR/MR until review comments and CI settle
   handoff/                      # Compact a conversation into a handoff doc
+  unslop/                       # Cut AI tells from any writing
 ```
 
 ## Skills
@@ -23,6 +24,7 @@ productivity/
 - **[rails/rspec-test-prof](rails/rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
 - **[productivity/babysit](productivity/babysit/SKILL.md)** — Watches a remote pull/merge request for new review comments and CI failures, fixing legitimate issues and replying until it settles. Host- and CI-agnostic.
 - **[productivity/handoff](productivity/handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
+- **[productivity/unslop](productivity/unslop/SKILL.md)** — Edits writing to remove common AI patterns (puffery, filler, em dashes, chatbot phrases, vague jargon) and add a human voice.
 
 ## Rules
 
@@ -43,6 +45,7 @@ ln -s ~/code/agent-skills/design/philosophy-of-software-design .claude/skills/ph
 ln -s ~/code/agent-skills/rails/rspec-test-prof               .claude/skills/rspec-test-prof
 ln -s ~/code/agent-skills/productivity/babysit                .claude/skills/babysit
 ln -s ~/code/agent-skills/productivity/handoff                .claude/skills/handoff
+ln -s ~/code/agent-skills/productivity/unslop                 .claude/skills/unslop
 
 # Optionally symlink rules
 ln -s ~/code/agent-skills/rails/rules .claude/rules

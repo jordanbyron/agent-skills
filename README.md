@@ -24,7 +24,7 @@ productivity/
 - **[rails/rspec-test-prof](rails/rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
 - **[productivity/babysit](productivity/babysit/SKILL.md)** — Watches a remote pull/merge request for new review comments and CI failures, fixing legitimate issues and replying until it settles. Host- and CI-agnostic.
 - **[productivity/handoff](productivity/handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
-- **[productivity/unslop](productivity/unslop/SKILL.md)** — Edits writing to remove common AI patterns (puffery, filler, em dashes, chatbot phrases, vague jargon) and add a human voice.
+- **[productivity/unslop](productivity/unslop/SKILL.md)** — Edits writing to remove common AI patterns (puffery, filler, em dashes, chatbot phrases, vague jargon) and add a human voice. Originally by [Lauren Tan](https://github.com/poteto) in [cursor/plugins](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md) and [poteto/noodle](https://github.com/poteto/noodle) (MIT).
 
 ## Rules
 
@@ -56,3 +56,5 @@ ln -s ~/code/agent-skills/rails/rules .claude/rules
 This repository is licensed under the [MIT License](LICENSE).
 
 The `productivity/handoff/` skill is derived from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT, Copyright © 2026 Matt Pocock) — see [`productivity/handoff/LICENSE`](productivity/handoff/LICENSE).
+
+The `productivity/unslop/` skill is derived from Lauren Tan's unslop skill in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack/skills/unslop) and [poteto/noodle](https://github.com/poteto/noodle) (MIT, Copyright © 2026 Lauren Tan) — see [`productivity/unslop/LICENSE`](productivity/unslop/LICENSE).

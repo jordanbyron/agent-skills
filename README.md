@@ -14,6 +14,8 @@ rails/
 productivity/
   babysit/                      # Watch a remote PR/MR until review comments and CI settle
   handoff/                      # Compact a conversation into a handoff doc
+  singleshot-refactor-one/      # Find one refactor, implement it, open a PR/MR
+  singleshot-untested-one/      # Find one file that needs tests, write them, open a PR/MR
   unslop/                       # Cut AI tells from any writing
 ```
 
@@ -24,6 +26,8 @@ productivity/
 - **[rails/rspec-test-prof](rails/rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
 - **[productivity/babysit](productivity/babysit/SKILL.md)** — Watches a remote pull/merge request for new review comments and CI failures, fixing legitimate issues and replying until it settles. Host- and CI-agnostic.
 - **[productivity/handoff](productivity/handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
+- **[productivity/singleshot-refactor-one](productivity/singleshot-refactor-one/SKILL.md)** — Autonomously finds one behavior-preserving refactor, implements it, and opens a pull/merge request. Learns generic lessons from rejected requests. Originally by [Mike Whittemore](https://gitlab.com/mike-whittemore/claude/-/tree/main/skills/singleshot-refactor-one).
+- **[productivity/singleshot-untested-one](productivity/singleshot-untested-one/SKILL.md)** — Finds source files with no tests, picks the one that most needs them, writes tests, and opens a pull/merge request. Learns generic lessons from rejected requests. Originally by [Mike Whittemore](https://gitlab.com/mike-whittemore/claude/-/tree/main/skills/singleshot-untested-one).
 - **[productivity/unslop](productivity/unslop/SKILL.md)** — Edits writing to remove common AI patterns (puffery, filler, em dashes, chatbot phrases, vague jargon) and add a human voice. Originally by [Lauren Tan](https://github.com/poteto) in [cursor/plugins](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md) and [poteto/noodle](https://github.com/poteto/noodle) (MIT).
 
 ## Rules
@@ -45,6 +49,8 @@ ln -s ~/code/agent-skills/design/philosophy-of-software-design .claude/skills/ph
 ln -s ~/code/agent-skills/rails/rspec-test-prof               .claude/skills/rspec-test-prof
 ln -s ~/code/agent-skills/productivity/babysit                .claude/skills/babysit
 ln -s ~/code/agent-skills/productivity/handoff                .claude/skills/handoff
+ln -s ~/code/agent-skills/productivity/singleshot-refactor-one .claude/skills/singleshot-refactor-one
+ln -s ~/code/agent-skills/productivity/singleshot-untested-one .claude/skills/singleshot-untested-one
 ln -s ~/code/agent-skills/productivity/unslop                 .claude/skills/unslop
 
 # Optionally symlink rules
@@ -58,3 +64,5 @@ This repository is licensed under the [MIT License](LICENSE).
 The `productivity/handoff/` skill is derived from [mattpocock/skills](https://github.com/mattpocock/skills) (MIT, Copyright © 2026 Matt Pocock) — see [`productivity/handoff/LICENSE`](productivity/handoff/LICENSE).
 
 The `productivity/unslop/` skill is derived from Lauren Tan's unslop skill in [cursor/plugins](https://github.com/cursor/plugins/tree/main/pstack/skills/unslop) and [poteto/noodle](https://github.com/poteto/noodle) (MIT, Copyright © 2026 Lauren Tan) — see [`productivity/unslop/LICENSE`](productivity/unslop/LICENSE).
+
+The `productivity/singleshot-refactor-one/` and `productivity/singleshot-untested-one/` skills are from Mike Whittemore's [mike-whittemore/claude](https://gitlab.com/mike-whittemore/claude) (commit `c900583`). `singleshot-refactor-one/LESSONS.md` has two extra entries added here.

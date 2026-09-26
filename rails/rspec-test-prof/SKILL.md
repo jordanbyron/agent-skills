@@ -185,6 +185,51 @@ end
 
 Avoid nesting contexts more than 2 levels deep. If you're nesting deeper, the test is probably trying to cover too many scenarios in one file — split it up.
 
+### No `def` helper methods in spec files
+
+Don't define helper methods with `def` inside `describe` or `context` blocks. They hide setup outside RSpec's lifecycle: they aren't memoized, they can't be overridden per context, and readers have to hunt for them. Use `let` / `let_it_be` for values and `shared_examples` for repeated behavior.
+
+```ruby
+# Avoid — ad hoc helper methods
+describe Card do
+  def build_card_with_tags(*names)
+    create(:card, tags: names.map { |n| create(:tag, name: n) })
+  end
+
+  def expect_closed(card)
+    expect(card).to be_closed
+    expect(card.closed_at).to be_present
+  end
+
+  it "closes tagged cards" do
+    card = build_card_with_tags("bug")
+    card.close
+    expect_closed(card)
+  end
+end
+
+# Good — let for data, shared_examples for repeated assertions
+describe Card do
+  let_it_be(:tags) { create_list(:tag, 1, name: "bug") }
+  let_it_be(:card, reload: true) { create(:card, tags: tags) }
+
+  shared_examples "a closed card" do
+    it "is closed with a timestamp" do
+      expect(card).to be_closed
+      expect(card.closed_at).to be_present
+    end
+  end
+
+  context "when a tagged card is closed" do
+    before { card.close }
+
+    it_behaves_like "a closed card"
+  end
+end
+```
+
+If the same setup or assertions are needed across many spec files, move them into `spec/support` as shared contexts, shared examples, or custom matchers — not a module of `def` helpers mixed into every example group.
+
 ## Profiling: Diagnose Before You Optimize
 
 When tests are slow, measure before guessing. TestProf provides profilers you run via environment variables — no code changes needed.
@@ -267,3 +312,4 @@ Ensure the test suite uses transactional tests (the Rails default). TestProf's t
 | Testing in-memory behavior? | `build_stubbed` |
 | Tests are slow? | Profile first (TagProf → EventProf → RSpecDissect → FactoryProf) |
 | Deeply nested contexts? | Flatten or split the file |
+| Tempted to write a `def` helper? | `let` / `let_it_be` or `shared_examples` |

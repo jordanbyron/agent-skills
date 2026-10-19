@@ -18,7 +18,26 @@ imperative rule per line, with the why.
   called; a single `helper(x)` forces the reader to decode the argument to recover what the name used to state. Why: the
   worth of a small, well-named function is the readability it gives its call site, not its line count, so collapsing
   trivial duplication trades that away for a DRY win that doesn't pay for itself. Judge the collapse by whether the
-  merged call site reads as clearly as the separate names did — not by lines removed.
+  merged call site reads as clearly as the separate names did — not by lines removed. The same holds for a family of
+  named predicates (`isA`, `isB`, `isC`): folding two of them into a membership check over a list of tags in
+  their one caller leaves that caller reading worse than its siblings, even though it removes two public methods.
+- **Don't inline a one-caller helper whose name states a step.** "Only one caller" and "one line long" are not reasons
+  to inline on their own. Why: a reviewer rejected an inline because the helper "named a step, and inlining it makes the
+  caller longer without making it clearer." Inline only when the name says less than the body does.
+- **Don't drop an unused parameter whose name labels a value or keeps a seam open.** A defaulted parameter
+  named `timeout` names a magic number; a defaulted output stream or clock is an injection point. Removing either
+  because no caller overrides it trades a name for a bare literal, or an injectable dependency for a hard-coded global.
+  Why: two such requests were rejected as "doesn't pay for itself" and "isn't a real gain"; nobody passing a parameter
+  today is not a cost the parameter imposes.
+- **Don't remove a guard that makes a null object safe, even when no current caller reaches it.** The guard on a
+  disabled or no-op variant is part of that variant's contract: every method answers harmlessly. Why: without it the
+  null object raises on a call it used to absorb, so safety moves from the object to an unwritten rule that nobody wires
+  it in that way. One line of guard is cheaper than that rule.
+- **Dedupe all the branches that repeat a computation, or none of them.** Hoisting a shared expression out of two
+  branches while a third still computes its own leaves the duplication in place, and folding a fallback into an
+  interpolation to make the hoist fit makes the line harder to read than the two it replaced. Why: a reviewer closed
+  such a request as "not enough of a win to land." Before proposing a dedupe, count every site and check each one reads
+  at least as well afterwards.
 - **Don't delete a liveness/validity guard on a dependency just because that dependency is a required constructor
   parameter that is never reassigned.** Why: constructor-param reasoning proves the dependency was valid at
   construction, not that it is valid at call time. An object that registers itself with a global event bus, singleton

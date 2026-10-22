@@ -38,26 +38,28 @@ The `rails/rules/` directory contains path-scoped Rails guidance documents. Each
 
 ## Installation
 
-Skills and rules live in subfolders, so symlink each one individually into your project:
+Skills and rules live in subfolders, so symlink each one individually into `~/.claude`. Run these from the root of your clone:
 
 ```bash
 # Clone once
 git clone https://github.com/jordanbyron/agent-skills.git ~/code/agent-skills
+cd ~/code/agent-skills
 
-# Symlink the skills you want into your project's .claude/skills/
-cd ~/your-project
-ln -s ~/code/agent-skills/design/domain-modeling              .claude/skills/domain-modeling
-ln -s ~/code/agent-skills/design/philosophy-of-software-design .claude/skills/philosophy-of-software-design
-ln -s ~/code/agent-skills/rails/rspec-test-prof               .claude/skills/rspec-test-prof
-ln -s ~/code/agent-skills/productivity/babysit                .claude/skills/babysit
-ln -s ~/code/agent-skills/productivity/handoff                .claude/skills/handoff
-ln -s ~/code/agent-skills/productivity/singleshot-comment-one  .claude/skills/singleshot-comment-one
-ln -s ~/code/agent-skills/productivity/singleshot-refactor-one .claude/skills/singleshot-refactor-one
-ln -s ~/code/agent-skills/productivity/singleshot-untested-one .claude/skills/singleshot-untested-one
-ln -s ~/code/agent-skills/productivity/unslop                 .claude/skills/unslop
+# Symlink the skills you want into ~/.claude/skills/
+mkdir -p ~/.claude/skills
+ln -s "$PWD/design/domain-modeling"               ~/.claude/skills/domain-modeling
+ln -s "$PWD/design/philosophy-of-software-design" ~/.claude/skills/philosophy-of-software-design
+ln -s "$PWD/rails/rspec-test-prof"                ~/.claude/skills/rspec-test-prof
+ln -s "$PWD/productivity/babysit"                 ~/.claude/skills/babysit
+ln -s "$PWD/productivity/handoff"                 ~/.claude/skills/handoff
+ln -s "$PWD/productivity/singleshot-comment-one"  ~/.claude/skills/singleshot-comment-one
+ln -s "$PWD/productivity/singleshot-refactor-one" ~/.claude/skills/singleshot-refactor-one
+ln -s "$PWD/productivity/singleshot-untested-one" ~/.claude/skills/singleshot-untested-one
+ln -s "$PWD/productivity/unslop"                  ~/.claude/skills/unslop
 
 # Optionally symlink rules
-ln -s ~/code/agent-skills/rails/rules .claude/rules
+mkdir -p ~/.claude/rules
+ln -s "$PWD/rails/rules" ~/.claude/rules/rails
 ```
 
 ## License

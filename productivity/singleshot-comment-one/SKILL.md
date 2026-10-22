@@ -26,8 +26,9 @@ Two modes, picked from the invocation:
   specify, else inferred from config.
 - **VCS host.** GitHub (`gh`, "PR") or GitLab (`glab`, "MR"), from `git remote`.
 - **Comment rules.** CLAUDE.md, contributing docs, linter config, and any comment hook in the project's or user's Claude
-  settings (a `PostToolUse` comment checker, for example). Run a configured checker on the file before and after. These
-  rules decide what a comment here may say, and they override this skill.
+  settings (a `PostToolUse` comment checker, for example). These rules decide what a comment here may say, and they
+  override this skill. A checker's findings are candidates, not verdicts: one that flags every comment can't tell a good
+  comment from a bad one, and a lower count afterwards proves nothing.
 - **Writing skill.** If a humanize, unslop, or writing-style skill is available, load it. Every comment you rewrite goes
   through it.
 
@@ -35,13 +36,14 @@ Two modes, picked from the invocation:
 
 One question per comment: does it say something the code can't? (Ousterhout, _A Philosophy of Software Design_.) A
 comment that repeats the code goes. A comment that records why it's that way (a decision, a constraint, a quirk of
-something outside the code) stays, cut down to what that takes. Doc comments that a documentation tool reads are the
-interface; tighten them, don't strip them, unless the project's rules say otherwise.
+something outside the code) stays, cut down to what that takes. Doc comments in the style the project's conventions
+call for are the interface; tighten them, don't strip them. A comment that retells a project doc can shrink to a pointer
+to it, once you've checked the doc carries the detail.
 
 ## Depth
 
-- **One file.** If it has more failing comments than a reviewer can take in at a glance, fix the clearest ones and leave
-  the rest for the next run.
+- **One file, about half a dozen hunks.** If it has more failing comments than that, fix the clearest ones and leave the
+  rest for the next run.
 - **Comments only.** The diff changes no code. When a comment could only go after a rename or an extraction, leave it,
   because that work belongs to a refactor.
 - **Subtract, don't add.** Delete, shorten, or correct. Don't write new comments.
@@ -52,7 +54,9 @@ interface; tighten them, don't strip them, unless the project's rules say otherw
 1. **Load constraints.** Read [LESSONS.md](LESSONS.md) and the project rules above. `LESSONS.md` entries are hard
    constraints.
 2. **Pick one file.** Survey the repo (an `Explore` subagent works) for the file whose comments fail the test most
-   clearly. Skip files that an open MR/PR touches, so the request can't conflict.
+   clearly. Dense comment blocks, class comments that say how instead of what for, and comments that retell a project
+   doc are good places to look. Skip files that an open MR/PR touches, so the request can't conflict. Asked for more
+   than one request, pick that many different files and give each its own branch off the fresh default branch.
 3. **Sweep it.** Fetch the default branch and branch from it in a worktree (`EnterWorktree` when the session is in this
    repo). Apply the test, the writing skill, and the project's rules.
 4. **Verify.** Run the detected formatter, linter, tests, and comment checker. Read the diff back: every changed line is a

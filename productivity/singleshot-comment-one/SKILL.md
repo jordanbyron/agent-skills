@@ -2,10 +2,7 @@
 name: singleshot-comment-one
 description:
   Autonomously trim, rewrite, or delete the comments in one file of the current repository and open a merge/pull
-  request for review. Changes comments only, never code. Works with any language, framework, or Git host. Defers to
-  the project's own comment rules and any humanize/unslop writing skill. Learns generic lessons from rejection
-  feedback. Use when the user wants a comment cleanup MR/PR, says "sweep comments" or "trim comments", or gives
-  feedback on a previous comment-sweep MR/PR.
+  request for review.
 ---
 
 # Comment One

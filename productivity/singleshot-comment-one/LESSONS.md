@@ -15,3 +15,9 @@ imperative rule per entry, with the why.
   not a rule; only the project's stated rules make it one. Apply the test to it like any other comment. Why: a run kept a
   stock phrase repeated in several files on the guess that it was a convention, and it was noise. It also kept a
   widespread informal doc style the project's conventions don't call for.
+- **Survey every comment form, and pick by weight, not count.** Rank candidate files by how many lines all their
+  comments take, doc comments included, as a share of the file. Why: a run counted only line comments, missed the
+  doc-comment-heavy files where most of the bloat lived, and shipped one request when the user expected three.
+- **Sweep the chosen file fully, up to the hunk cap.** Docs that retell another doc comment, walk through a dependency's
+  internals, or restate the code fail the test as surely as a stale tag does. Why: a run took only the easy one-liners
+  and left a module doc that repeated its class doc nearly line for line.

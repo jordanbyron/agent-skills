@@ -22,6 +22,7 @@ in the skill. Tell the user where it belongs and offer to record it:
 
 - a rule in the project's **CLAUDE.md** or contributing guide
 - the project's **comment checker or linter config**
+- the **comment skill's rubric**, if the project or team shares one; a fix there reaches every tool that reads it
 - a **memory**, if it's a working preference
 
 The skill reads all of these at run time, so the lesson still steers the next run.

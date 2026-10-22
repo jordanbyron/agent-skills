@@ -2,7 +2,8 @@
 
 Generic comment-sweep lessons learned from rejected requests. Stack-agnostic only: no project names, file paths,
 language features, or doc-tool names (those belong in the project's own context). Every run reads these as hard
-constraints. One imperative rule per entry, with the why.
+constraints, except that an entry about which comments stay gives way to the project's or user's comment rules. One
+imperative rule per entry, with the why.
 
 - **Leave section-divider comments inside a class alone.** A class that needs headings is two concepts sharing a name,
   and the fix is a split, not a deletion. Why: a reviewer called such dividers "a smell: if we need this it means we

@@ -23,20 +23,23 @@ Two modes, picked from the invocation:
 - **Verify commands.** Formatter, linter, test runner, and CI script, as the project's CLAUDE.md, skills, or memory
   specify, else inferred from config.
 - **VCS host.** GitHub (`gh`, "PR") or GitLab (`glab`, "MR"), from `git remote`.
-- **Comment rules.** CLAUDE.md, contributing docs, linter config, and any comment hook in the project's or user's Claude
-  settings (a `PostToolUse` comment checker, for example). These rules decide what a comment here may say, and they
-  override this skill. A checker's findings are candidates, not verdicts: one that flags every comment can't tell a good
-  comment from a bad one, and a lower count afterwards proves nothing.
+- **Comment rules.** CLAUDE.md, contributing docs, linter config, any comment hook in the project's or user's Claude
+  settings (a `PostToolUse` comment checker, for example), and any comment skill installed at the project, user, or
+  plugin level (a comment audit with its own rubric, say). Read such a skill's rubric rather than running its workflow:
+  it owns what a comment may say, this skill owns how much one run touches. These rules override the test below and the
+  `LESSONS.md` entries about which comments stay; where they're silent, fall back on those. A checker's findings are
+  candidates, not verdicts: one that flags every comment can't tell a good comment from a bad one, and a lower count
+  afterwards proves nothing.
 - **Writing skill.** If a humanize, unslop, or writing-style skill is available, load it. Every comment you rewrite goes
   through it.
 
 ## The test
 
-One question per comment: does it say something the code can't? (Ousterhout, _A Philosophy of Software Design_.) A
-comment that repeats the code goes. A comment that records why it's that way (a decision, a constraint, a quirk of
-something outside the code) stays, cut down to what that takes. Doc comments in the style the project's conventions
-call for are the interface; tighten them, don't strip them. A comment that retells a project doc can shrink to a pointer
-to it, once you've checked the doc carries the detail.
+The default when the comment rules don't decide. One question per comment: does it say something the code can't?
+(Ousterhout, _A Philosophy of Software Design_.) A comment that repeats the code goes. A comment that records why it's
+that way (a decision, a constraint, a quirk of something outside the code) stays, cut down to what that takes. Doc
+comments in the style the project's conventions call for are the interface; tighten them, don't strip them. A comment
+that retells a project doc can shrink to a pointer to it, once you've checked the doc carries the detail.
 
 ## Depth
 
@@ -50,7 +53,7 @@ to it, once you've checked the doc carries the detail.
 ## Run mode
 
 1. **Load constraints.** Read [LESSONS.md](LESSONS.md) and the project rules above. `LESSONS.md` entries are hard
-   constraints.
+   constraints, within the precedence set under comment rules.
 2. **Pick one file.** Survey the repo (an `Explore` subagent works) for the file whose comments fail the test most
    clearly. Dense comment blocks, class comments that say how instead of what for, and comments that retell a project
    doc are good places to look. Skip files that an open MR/PR touches, so the request can't conflict. Asked for more

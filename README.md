@@ -13,6 +13,7 @@ rails/
   rules/                        # Path-scoped Rails guidance (controllers, UUIDs, PRs, callbacks)
 productivity/
   babysit/                      # Watch a remote PR/MR until review comments and CI settle
+  gh-comment-attribution/       # Mark agent-written GitHub comments with a model callout
   handoff/                      # Compact a conversation into a handoff doc
   singleshot-comment-one/       # Trim one file's comments, open a PR/MR
   singleshot-refactor-one/      # Find one refactor, implement it, open a PR/MR
@@ -26,6 +27,7 @@ productivity/
 - **[design/philosophy-of-software-design](design/philosophy-of-software-design/SKILL.md)** — Applies principles from John Ousterhout's *A Philosophy of Software Design* to code development, review, and refactoring.
 - **[rails/rspec-test-prof](rails/rspec-test-prof/SKILL.md)** — Patterns for writing fast, clear, and maintainable RSpec tests using TestProf recipes (`let_it_be`, `before_all`, `factory_default`).
 - **[productivity/babysit](productivity/babysit/SKILL.md)** — Watches a remote pull/merge request for new review comments and CI failures, fixing legitimate issues and replying until it settles. Host- and CI-agnostic.
+- **[productivity/gh-comment-attribution](productivity/gh-comment-attribution/SKILL.md)** — Puts a `[!NOTE]` callout naming the agent model at the top of every GitHub comment an agent writes on the user's behalf, so readers know who wrote it.
 - **[productivity/handoff](productivity/handoff/SKILL.md)** — Compacts the current conversation into a handoff document for another agent to pick up. Originally by [Matt Pocock](https://github.com/mattpocock/skills) (MIT).
 - **[productivity/singleshot-comment-one](productivity/singleshot-comment-one/SKILL.md)** — Trims, rewrites, or deletes the comments in one file, changing no code, and opens a pull/merge request. Defers to the project's comment rules and any unslop/humanize skill. Learns generic lessons from rejected requests.
 - **[productivity/singleshot-refactor-one](productivity/singleshot-refactor-one/SKILL.md)** — Autonomously finds one behavior-preserving refactor, implements it, and opens a pull/merge request. Learns generic lessons from rejected requests. Originally by [Mike Whittemore](https://gitlab.com/mike-whittemore/claude/-/tree/main/skills/singleshot-refactor-one).
@@ -51,6 +53,7 @@ ln -s "$PWD/design/domain-modeling"               ~/.claude/skills/domain-modeli
 ln -s "$PWD/design/philosophy-of-software-design" ~/.claude/skills/philosophy-of-software-design
 ln -s "$PWD/rails/rspec-test-prof"                ~/.claude/skills/rspec-test-prof
 ln -s "$PWD/productivity/babysit"                 ~/.claude/skills/babysit
+ln -s "$PWD/productivity/gh-comment-attribution"  ~/.claude/skills/gh-comment-attribution
 ln -s "$PWD/productivity/handoff"                 ~/.claude/skills/handoff
 ln -s "$PWD/productivity/singleshot-comment-one"  ~/.claude/skills/singleshot-comment-one
 ln -s "$PWD/productivity/singleshot-refactor-one" ~/.claude/skills/singleshot-refactor-one
